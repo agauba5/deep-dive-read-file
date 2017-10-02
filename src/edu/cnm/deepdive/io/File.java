@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,11 +33,23 @@ public class File {
      return lines.toArray(new String[0]);
     }
   }
-  
+  public static int[][] getMatrix(String[] lines,String delimiter){
+    int[][] data = new int[lines.length][];
+    for(int i = 0; i< lines.length; i++){
+      String[] parts = lines[i].split(delimiter);
+      int[] row = new int[parts.length];
+      for(int j = 0; j < parts.length; j++){
+         row[j] = Integer.parseInt(parts[j]);
+      }
+      data[i] = row;
+    }
+    return data;
+  }
+
   public static void main(String[] args) {
     try {
-      for(String line : getlines(FILENAME)){
-        System.out.println(line);
+      for(int[] row : getMatrix(getlines(FILENAME), "\\s+")){
+        System.out.println(Arrays.toString(row));
       }
     } catch (FileNotFoundException e) {
       e.printStackTrace();
